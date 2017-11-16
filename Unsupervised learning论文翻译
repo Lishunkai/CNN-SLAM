@@ -34,6 +34,9 @@ https://www.zhihu.com/people/guohengkai/activities
     用CNN进行深度和位姿估计的监督信号的关键，来源于novel view synthesis任务：输入一个场景，输出一个由不同相机位姿合成的新图片。我们可以
 
 
+该论文中的explainability mask可检测到动态物体。The network has learned to identify dynamic objects in the scene as unexplainable by our model.
+
+
 
 
 
