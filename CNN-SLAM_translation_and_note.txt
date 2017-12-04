@@ -39,6 +39,10 @@ Switching code to OpenCV3 can be done following the official guide at http://doc
 	每当生成一个新的关键帧时，CNN便随之产生一幅对应的深度预测图。我们使用的深度预测方法属于目前最高水平（文献【16】中提出的方法），它基于Residual Network (ResNet)延伸出一个全卷积网络。该架构的第一部分基于ResNet-50（文献【9】），由ImageNet训练生成的权重初始化该部分。框架的第二部分将由ResNet-50提出的last pooling和fully connected layers替换为一系列上采样的blocks，这些blocks由unpooling和卷积层组成。在上采样之后，drop-out is applied before a final convolutional layer which outputs a 1-channel output map representing the predicted depth map. The loss function is based on the reverse Huber function（文献【16】）.
 	我们借鉴其他用相同的架构来进行深度预测、语义分割的成功范例（参考文献【3，29】），也训练了该网络，用于从RGB图像中预测像素级的语义label。我们修改了网络，使它的输出通道数和类别数相同，并用了soft-max层和cross-entropy loss function，通过反向传播和Stochastic Gradient Descent(SGD)最小化此loss function。需要指明的是，虽然原则上可以使用任何语义分割算法，但我们此工作的目的是展现帧级别的分割图是如何成功地和单目SLAM框架融合在一起的（详见3.5节）。
 
+【3.3 生成关键帧和位姿图优化】
+	使用预先训练的CNN来进行深度预测的局限是，如果SLAM所用传感器的内参和拍摄训练集图像的相机的内参不同，那么3D重建时的绝对尺度估计必然不准确。为解决该问题，我们用当前相机的焦距f_cur和训练集所用相机的焦距f_tr的比值，通过CNN调整深度（公式【5】）。D^~_ki是通过当前关键帧L_i由CNN直接退化得到的深度图。
+	图3显示了用公式【5】校正的有效性。如图所示，经过校正后深度图和轨迹的准确性都明显提升。
+	另外，
 
 
 
