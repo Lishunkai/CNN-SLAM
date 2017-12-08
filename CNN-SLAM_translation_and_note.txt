@@ -45,6 +45,8 @@ Switching code to OpenCV3 can be done following the official guide at http://doc
 	另外，我们将每个深度图D_ki和不确定性地图U_ki联系在一起。在参考文献【4】中，将该不确定地图的每个元素初始化为一个大的常数。由于CNN可在不依赖于任何temporal regulation的情况下，产生每帧对应的深度图，因此我们通过计算当前深度地图和距它最近的关键帧上的对应点的差别，计算出置信值，从而将不确定地图初始化。这样以来，置信值衡量了在不同的每个预测的深度值
 
 
+following【4】之后的内容：
+sigma^2_p是白噪声方差，用于增加
 
 
 
