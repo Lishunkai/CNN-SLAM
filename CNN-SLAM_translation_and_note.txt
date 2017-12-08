@@ -59,13 +59,20 @@ sigma^2_p是白噪声方差，用于增加传播不确定度(propagated uncertai
     在我们提出的框架中，我们用文献【27】提出的实时算法，该算法旨在渐进地将深度图和RGB-D序列中每帧生成的connected component map融合在一起。该方法利用Global Segmentation Model (GSM)，随着时间的推移，将标签平均分配到每个3D元素，因此该方法对帧级的分割中的噪声是鲁棒的。在我们的框架中，我们将位姿估计作为算法的输入。这是因为相机位姿是由单目SLAM估计的，而输入的深度图只与一系列捕获的关键帧有关。我们使用语义分割图，而不是文献【27】中的connected component maps。该框架实现的效果是：根据新加入的关键帧渐进地重建三维场景，场景中的每个3D元素都关联了一个语义类别。在此之前，我们在训练CNN时使用了这些语义类别。
 
 【4 评估】
+    在这一小节，我们对tracking的精度、三维重建的精度、纯旋转情况下的鲁棒性及语义标签融合进行评估。我们在实现CNN-SLAM时，CNN网络的输入/输出分辨率为304*228，但输入帧和预测的深度图的分辨率都先转换为320*240，并将它们作为其余所有阶段的输入。基于CNN的深度预测和语义分割在GPU上运行，算法中的其余部分都在CPU上以两个线程运行，基于这种架构，CNN-SLAM可实时运行。其中，一个线程用于帧级处理（相机位姿估计和深度优化），另一个线程用于关键帧相关处理（关键帧初始化、位姿图优化和全局语义标签融合）。
+    我们使用ICL-NUIM（合成的）和TUM RGB-D SLAM（由Kinect捕获）两个数据集测试。这两个数据集都提供了相机路径和深度图的ground truth。在所有的实验中，我们都用NYU Depth v2数据集的室内场景训练CNN，得到训练好的CNN模型，并用此模型测试该网络在从未见过的环境下的泛化性能(test the generalization capability of the network to unseen environments)。另外，NYU Depth v2数据集包含了深度的ground truth和帧级的语义标签注释，而这恰恰是语义标签融合所必须的。特别需要说明的是，我们在官方的train split of the labeled subset上训练语义分割网络，而用原始的NYU数据集（里面的图片更多）训练深度网络，如文献【16】所述。语义注释由4个超级类(super-class)组成：floor, vertical structure, large structure/furniture, small structure. 值得说明的是，由于相机传感器、视角和场景不同，训练数据集的设置与评价CNN-SLAM的数据集设置有所不同。例如，NYU Depth v2数据集包含了很多起居室、厨房和卧室的图片，而TUM RGB-D SLAM数据集中更多的是办公室场景，例如书桌、物体和人物。因此这些起居室、厨房和卧室等场景是TUM RGB-D SLAM数据集中没有的。
 
+【4.1 CNN-SLAM与当前最高水平SLAM的对比】
+    将CNN-SLAM与当前单目SLAM最高水平的两个框架：LSD-SLAM（直接法）和ORB-SLAM（特征点法）作对比。为保持完整性，我们还和REMODE（文献【23】，REMODE是单目稠密深度图估计的当前最高水平）作对比。REMODE可根据作者提供的github代码来实现。最后，我们也将CNN-SLAM和文献【16】的方法作对比。【16】将CNN预测的深度图作为基于深度的SLAM的输入（基于点的融合，文献【11,27】，当前基于深度SLAM的最高水平），其实现基于文献【27】提供的代码。
+    Given the ambiguity of monocular SLAM approaches to estimate absolute scale, we also evaluate LSD-SLAM by bootstrapping its initial scale using the ground-truth depth map, as done in the evaluation in [4, 20]. As for REMODE, since it requires as input the camera pose estimation at each frame, we use the trajectory and key-frames estimated by LSD-SLAM with bootstrapping.
 
+LSD-SLAM:	https://www.github.com/tum-vision/lsd_slam
+ORB-SLAM2:	https://www.github.com/raulmur/ORB_SLAM2
+REMODE:		https://www.github.com/uzh-rpg/rpg_open_remode
+文献【27】:	https://campar.in.tum.de/view/Chair/ProjectInSeg
 
-
-
-
-
+    按照文献【26】中提出的评价方法，表1列出了基于绝对轨迹误差(Absolute Trajectory Error, ATE)的相机位姿准确性评估（计算方均根）。另外，我们通过计算深度误差小于10%的点的比例，评估了重建准确性和重建密度。从表1可看出，CNN-SLAM优于其他方法，而且三维重建的准确性、稠密性也大大提高。
+    深度图估计的准确性对比如图4所示。从图中可看出，CNN-SLAM能明显改善CNN生成深度估计图中边缘模糊的情况，且对低纹理场景也能正常工作。
 
 
 
