@@ -50,7 +50,8 @@ sigma^2_p是白噪声方差，用于增加传播不确定度(propagated uncertai
     最终，在图(graph)中找到与新加入关键帧视场相似（即位姿相近）的一系列关键帧，根据这些关键帧创建新的边缘，并通过这些新创建的边缘更新位姿图(Finally, the pose graph is also updated at each new key-frame, by creating new edges with the key-frames already present in the graph that share a similar field of view(i.e., having a small relative pose) with the newly added key-frame)。每次关键帧的位姿都通过位姿图优化（文献【14】）来得到全局的优化。
 
 【3.4 帧级深度优化】
-
+    该步骤的目标是基于每个new-frame的深度估计图不断优化当前活跃的关键帧的深度图。我们用small baseline stereo matching的方法（文献【5】中的半稠密框架），基于沿极线的5-pixel匹配，遍历当前帧t的每个像素生成D_t和U_t。之后，基于相机位姿估计T^ki_t，通过关键帧k_i对D_t和U_t进行校准。
+    估计生成的D_t和U_t将根据下式直接与最近关键帧k_i的D_ki和U_ki融合（公式【10】【11】）。
 
 
 
