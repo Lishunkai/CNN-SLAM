@@ -28,8 +28,21 @@ Past, Present, and Future of Simultaneous Localization And Mapping: Towards the 
     Automatic parameter tuning: SLAM systems (in particular, the data association modules) require extensive parameter tuning in order to work correctly for a given scenario. These parameters include thresholds that control feature matching, RANSAC parameters, and criteria to decide when to add new factors to the graph or when to trigger a loop closing algorithm to search for matches. If SLAM has to work “out of the box” in arbitrary scenarios, methods for automatic tuning of the involved parameters need to be considered.
 
 4. Long-term autonomy 2: Scalability
-    We focus on two ways to reduce the complexity of factor graph optimization: (i) sparsification methods, which trade off information loss for memory and computational efficiency, and (ii) out-of-core and multi-robot methods,
-which split the computation among many robots/processors.
+    We focus on two ways to reduce the complexity of factor graph optimization: (i) sparsification methods, which trade off information loss for memory and computational efficiency, and (ii) out-of-core and multi-robot methods, which split the computation among many robots/processors.
+
+------------------------------------------------------------------------
+SVO是直接法和特征点法的一个折中，虽然没有ORB-SLAM2好，但还是很有吸引力的，暂时不要放弃对它的关注。
+
+疑问：ORB-SLAM在回环检测后执行全局优化时，只优化所有关键帧组成的位姿图，而不优化点云。那点云的位置怎么优化？
+------------------------------------------------------------------------
+
+[High-level object-based representations]
+    While point clouds and boundary representations are currently dominating the landscape of dense mapping, we envision that higher-level representations, including objects and solid shapes, will play a key role in the future of SLAM. Early techniques to include object-based reasoning in SLAM are “SLAM++” from Salas-Moreno et al. [217], the work from Civera et al. [50], and Dame et al. [56].
+    The following problems regarding metric representation for SLAM deserve a large amount of fundamental research, and are still vastly unexplored.
+1) High-level, expressive representations in SLAM. The point clouds or TSDF to model 3D geometry is wasteful of memory, yet it doesn't provide readily usable information about the type of environment.
+
+
+
 
 
 
