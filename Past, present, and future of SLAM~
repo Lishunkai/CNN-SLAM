@@ -1,0 +1,36 @@
+Past, Present, and Future of Simultaneous Localization And Mapping: Towards the Robust-Perception Age
+
+1 Introduction
+    Our main focus is on metric and semantic SLAM, and we refer the reader to the recent survey by Lowry et al. [160], which provides a comprehensive review of vision-based place recognition and topological SLAM.
+    The keyword here is “loop closure”: if we sacrifice loop closures, SLAM reduces to odometry. However, more recent odometry algorithms are based on visual and inertial information, and have very small drift (< 0.5% of the trajectory length [82]).
+
+[Do we really need SLAM?]
+
+    Visual-Inertial Navigation (VIN) is SLAM: VIN can be considered a reduced SLAM system, in which the loop closure (or place recognition) module is disabled.
+    A robot performing odometry and neglecting loop closures interprets the world as an “infinite corridor” (Fig. 1-left) in which the robot keeps exploring new areas indefinitely. A loop closure event informs the robot that this “corridor” keeps intersecting itself (Fig. 1-right). The advantage of loop closure now becomes clear: by finding loop closures, the robot understands the real topology of the environment, and is able to find shortcuts between locations (e.g., point B and C in the map).
+    Therefore, if getting the right topology of the environment is one of the merits of SLAM, why not simply drop the metric information and just do place recognition? The answer is simple: the metric information makes place recognition much simpler and more robust; the metric reconstruction informs the robot about loop closure opportunities and allows discarding spurious loop closures [150]. Therefore, while SLAM might be redundant in principle, SLAM offers a natural defense against wrong data association and perceptual aliasing, where similarly looking scenes, corresponding to distinct locations in the environment, would deceive place recognition. In this sense, the SLAM map provides a way to predict and validate future measurements: we believe that this mechanism is key to robust operation.
+
+[Is SLAM solved?]
+
+    Other robot/environment/performance combinations still deserve a large amount of fundamental research. Current SLAM algorithms can be easily induced to fail when either the motion of the robot or the environment are too challenging (e.g., fast robot dynamics, highly dynamic environments); similarly, SLAM algorithms are often unable to face strict performance requirements, e.g., high rate estimation for fast closed-loop control. This survey will provide a comprehensive overview of these open problems, among others.
+
+    In this paper, we argue that we are entering in a third era for SLAM, the robust-perception age, which is characterized by the following key requirements:
+1) robust performance: the SLAM system operates with low failure rate for an extended period of time in a broad set of environments; the system includes self-tuning capabilities in that it can adapt the selection of the system parameters to the scenario.
+2) high-level understanding: the SLAM system goes beyond basic geometry reconstruction to obtain a high-level understanding of the environment (e.g., high-level geometry, semantics, physics, affordances).
+3) resource awareness: the SLAM system is tailored to the available sensing and computational resources, and provides means to adjust the computation load depending on the available resources;
+4) task-driven perception: the SLAM system is able to select relevant perceptual information and filter out irrelevant sensor data, in order to support the task the robot has to perform; moreover, the SLAM system produces adaptive map representations, whose complexity may vary depend-
+ing on the task at hand.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
