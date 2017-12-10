@@ -24,6 +24,32 @@ Past, Present, and Future of Simultaneous Localization And Mapping: Towards the 
 3. Long-term autonomy 1: Robustness
     Loop closure detection 想要做成实时一定要用bag-of-words。然而，BoW对于光照环境恶劣的情况还是不能工作，this has led to deveolp new methods that explicitly account for such variations by matching sequences[173], gathering different visual appearances into a unified representation[48], or using spatial as well as appearance information[106].
     In vision-based applications, RANSAC is commonly used for geometric verification and outlier rejection, see [218] and the references therein.
+    In dynamic environments, the challenge is twofold. First（短期变化，主要指环境中成分的变化，如行人、车辆）, SLAM has to detect, discard, or track changes. While mainstream approaches attempt to discard the dynamic portion of the scene [180](2001年), some works include dynamic elements as part of the model [11, 253]. Second（长期变化，主要指环境本身的变化，如冬天变成夏天）, SLAM has to model permanent or semi-permanent changes, and understand how and when to update the map accordingly. Current SLAM systems that deal with dynamics either maintain multiple (time-dependent) maps of the same location [60], or have a single representation parameterized by some time-varying parameter [140].
+    Automatic parameter tuning: SLAM systems (in particular, the data association modules) require extensive parameter tuning in order to work correctly for a given scenario. These parameters include thresholds that control feature matching, RANSAC parameters, and criteria to decide when to add new factors to the graph or when to trigger a loop closing algorithm to search for matches. If SLAM has to work “out of the box” in arbitrary scenarios, methods for automatic tuning of the involved parameters need to be considered.
+
+4. Long-term autonomy 2: Scalability
+    We focus on two ways to reduce the complexity of factor graph optimization: (i) sparsification methods, which trade off information loss for memory and computational efficiency, and (ii) out-of-core and multi-robot methods, which split the computation among many robots/processors.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
