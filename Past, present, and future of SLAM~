@@ -39,10 +39,12 @@ SVO是直接法和特征点法的一个折中，虽然没有ORB-SLAM2好，但�
 [High-level object-based representations]
     While point clouds and boundary representations are currently dominating the landscape of dense mapping, we envision that higher-level representations, including objects and solid shapes, will play a key role in the future of SLAM. Early techniques to include object-based reasoning in SLAM are “SLAM++” from Salas-Moreno et al. [217], the work from Civera et al. [50], and Dame et al. [56].
     The following problems regarding metric representation for SLAM deserve a large amount of fundamental research, and are still vastly unexplored.
-1) High-level, expressive representations in SLAM. The point clouds or TSDF to model 3D geometry is wasteful of memory, yet it doesn't provide readily usable information about the type of environment.
 
+1) High-level, expressive and compact representations in SLAM. The point clouds or TSDF to model 3D geometry is wasteful of memory, yet the representations do not provide any high-level understanding of the 3D geometry. No SLAM can currently build higher-level representations. Recent efforts in this direction include [17, 51, 231].
 
+2) Optimal representations: Few works have focused on understanding which criteria should guide the choise of a specific representation. Intuitively, in simple indoor environments one should prefer parametrized primitives since few parameters can sufficiently describe the 3D geometry; on the other hand, in complex outdoor environments, one might prefer mesh models. How should we compare different representations and how should we choose the "optimal" representation?
 
+3) Automatic, adaptive representations: 很难
 
 
 
