@@ -18,13 +18,13 @@ Past, Present, and Future of Simultaneous Localization And Mapping: Towards the 
 1) robust performance: the SLAM system operates with low failure rate for an extended period of time in a broad set of environments; the system includes self-tuning capabilities in that it can adapt the selection of the system parameters to the scenario.
 2) high-level understanding: the SLAM system goes beyond basic geometry reconstruction to obtain a high-level understanding of the environment (e.g., high-level geometry, semantics, physics, affordances).
 3) resource awareness: the SLAM system is tailored to the available sensing and computational resources, and provides means to adjust the computation load depending on the available resources;
-4) task-driven perception: the SLAM system is able to select relevant perceptual information and filter out irrelevant sensor data, in order to support the task the robot has to perform; moreover, the SLAM system produces adaptive map representations, whose complexity may vary depend-
-ing on the task at hand.
+4) task-driven perception: the SLAM system is able to select relevant perceptual information and filter out irrelevant sensor data, in order to support the task the robot has to perform; moreover, the SLAM system produces adaptive map representations, whose complexity may vary depending on the task at hand.
 
 
-
-
-
+3. Long-term autonomy 1: Robustness
+    Loop closure detection 想要做成实时一定要用bag-of-words。然而，BoW对于光照环境恶劣的情况还是不能工作，this has led to deveolp new methods that explicitly account for such variations by matching sequences[173], gathering different visual appearances into a unified representation[48], or using spatial as well as appearance information[106].
+    In vision-based applications, RANSAC is commonly used for geometric verification and outlier rejection, see [218]
+and the references therein.
 
 
 

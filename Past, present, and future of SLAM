@@ -21,9 +21,9 @@ Past, Present, and Future of Simultaneous Localization And Mapping: Towards the 
 4) task-driven perception: the SLAM system is able to select relevant perceptual information and filter out irrelevant sensor data, in order to support the task the robot has to perform; moreover, the SLAM system produces adaptive map representations, whose complexity may vary depending on the task at hand.
 
 
-
-
-
+3. Long-term autonomy 1: Robustness
+    Loop closure detection 想要做成实时一定要用bag-of-words。然而，BoW对于光照环境恶劣的情况还是不能工作，this has led to deveolp new methods that explicitly account for such variations by matching sequences[173], gathering different visual appearances into a unified representation[48], or using spatial as well as appearance information[106].
+    In vision-based applications, RANSAC is commonly used for geometric verification and outlier rejection, see [218] and the references therein.
 
 
 
