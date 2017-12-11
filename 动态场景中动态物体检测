@@ -30,3 +30,21 @@ DSO详解 - 半闲居士的文章 - 知乎：http://zhuanlan.zhihu.com/p/2917754
 知乎：
     视觉SLAM中的动态场景其实有很多种,我觉得你指的是场景中有会动的物体(Moving Objects),其实还有视觉SLAM中的光照变化(Illumination Change),还有Life-long term中的场景变化,房子拆迁改造之类的= =.但不管是哪种,其实都是一个data association的问题.视觉SLAM在恢复场景和运动时是有一个静态场景假设(Static World Assumption)的,因此我们才可以求出相机相对于静态场景的运动.但就如 @颜沁睿所说的,我们采集的点云是一堆无意义的特征点,有运动物体时,光从点云是分不出哪个是运动物体,哪个是静态场景(会有一些假设了,比如说背景点分布均匀,运动物体的点往往集中在一个区域).所以在计算相机位置时,是肯定要把运动物体的点当做噪点剔除的.这是第一个问题.当运动物体点少的时候是可以用RANSAC之类的抽样方法剔除,但如果是高度动态的场景,就不行了.那肯定需要有一种方法来判别出运动物体和静态场景,对运动物体进行跟踪就是一种方法,对于short-term的运动物体进行small baseline的跟踪是不难的, 既然跟踪可以做到,那么去估计物体的运动也是可以做到了,所以map就有两种形式了,一种就是把运动物体的点给剔除了,一种就是把运动物体随时间变化的方式记录下来,形成一个4D的map.这是第二个和第三个问题,---------------至于动态场景的解决方法, 我也同意@颜沁睿的高层语义的方式,视觉SLAM下一个方向肯定是结合DL/ML做高层语义,来提高SLAM的稳定性.说了那么多其实就是复述了一下 @颜沁睿的想法=.=
 
+读：SLAM Estimation in Dynamic Outdoor Environments: A Review
+
+仔细看看【都是浙江大学的】：
+http://valse.mmcheng.net/ftp/20141010/GuofengZhang_RDSLAM.pdf
+http://www.zjucvg.net/rdslam/rdslam.html
+
+光流检测动态物体：
+https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-412j-cognitive-robotics-spring-2005/projects/vkm_writeup.pdf
+
+动态稀疏环境下移动机器人SLAM问题研究 黄志明 硕士论文
+
+到bing和google上搜一下 SLAM dynamic environment
+尽量看近几年的内容
+
+http://www.worldscientific.com/doi/abs/10.1142/S021984361000212X
+
+
+在不影响最终效果的情况下，可将double型数据改成浮点型或整型
